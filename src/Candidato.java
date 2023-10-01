@@ -4,12 +4,11 @@ public class Candidato extends Ciudadano {
     private String promesas[];
     private int votos;
 
-    public Candidato(String nombre, String cedula, Ciudades ciudad, Ideologia ideologia, Partidos partido, String[] promesas, int votos) {
+    public Candidato(String nombre, String cedula, Ciudades ciudad, Ideologia ideologia, Partidos partido, String[] promesas) {
         super(nombre, cedula, ciudad);
         this.ideologia = ideologia;
         this.partido = partido;
         this.promesas = promesas;
-        this.votos = votos;
     }
 
     public Ideologia getIdeologia() {

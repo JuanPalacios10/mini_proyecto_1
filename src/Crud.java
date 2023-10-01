@@ -4,7 +4,7 @@ import java.util.Scanner;
 public abstract class Crud {
     private static int indice = -1;
 
-    public static void actualizar(ArrayList<Candidato> candidatos) {
+    public static void actualizarCandidato(ArrayList<Candidato> candidatos) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese el nombre del candidato a actualizar: ");
@@ -53,9 +53,6 @@ public abstract class Crud {
                 promesas[i] = promesa;
             }
 
-            System.out.println("\nIngrese el numero de votos del candidato: ");
-            int votos = scanner.nextInt();
-
             Ciudades ciudadOrigen = Ciudades.Buenaventura;
             Partidos partidoPolitico = Partidos.AICO;
             Ideologia ideologiaPolitica = Ideologia.Izquierda;
@@ -97,14 +94,13 @@ public abstract class Crud {
                 candidatos.get(indice).setIdeologia(ideologiaPolitica);
                 candidatos.get(indice).setPartido(partidoPolitico);
                 candidatos.get(indice).setPromesas(promesas);
-                candidatos.get(indice).setVotos(votos);
             }
         } else {
             System.out.println("\nEl nombre del candidato no fue encontrado");
         }
     }
 
-    public static void buscar(ArrayList<Candidato> candidatos) {
+    public static void buscarCandidato(ArrayList<Candidato> candidatos) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese el nombre del candidato a buscar: ");
@@ -124,8 +120,6 @@ public abstract class Crud {
                 for(String promesa : candidato.getPromesas()) {
                     System.out.println("- " + promesa);
                 }
-
-                System.out.println("Votos: " + candidato.getVotos());
             }
         });
 
