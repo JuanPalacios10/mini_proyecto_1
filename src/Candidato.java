@@ -1,20 +1,32 @@
 public class Candidato extends Ciudadano {
-    private boolean partido;
+    private Ideologia ideologia;
+    private Partidos partido;
     private String promesas[];
     private int votos;
 
-    public Candidato(String nombre, String cedula, boolean partido, String[] promesas, int votos) {
-        super(nombre, cedula);
+    public Candidato(String nombre, String cedula, Ciudades ciudad, Ideologia ideologia, Partidos partido, String[] promesas) {
+        super(nombre, cedula, ciudad);
+        this.ideologia = ideologia;
         this.partido = partido;
         this.promesas = promesas;
-        this.votos = votos;
     }
-    public boolean isPartido() {
+
+    public Ideologia getIdeologia() {
+        return ideologia;
+    }
+
+    public void setIdeologia(Ideologia ideologia) {
+        this.ideologia = ideologia;
+    }
+
+    public Partidos getPartido() {
         return partido;
     }
-    public void setPartido(boolean partido) {
+
+    public void setPartido(Partidos partido) {
         this.partido = partido;
     }
+    
     public String[] getPromesas() {
         return promesas;
     }
