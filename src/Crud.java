@@ -4,6 +4,89 @@ import java.util.Scanner;
 public abstract class Crud {
     private static int indice = -1;
 
+    public static void insertarCandidato(ArrayList<Candidato> candidatos){
+        Scanner dato = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del candidato: ");
+        String nombre = dato.nextLine();
+
+        System.out.println("Ingrese el número de cédula del candidato: ");
+        String cedula = dato.nextLine();
+
+        System.out.println("\nLista de ciudades\n");
+        for(Ciudades ciudad : Ciudades.values()) {
+            System.out.println("- " + ciudad.toString().replace("_", " "));
+        }
+
+        System.out.println("\nIngrese la ciudad del candidato: ");
+        String ciudadIn = dato.nextLine();
+
+        System.out.println("\nIngrese la idelogia politica del candidato (Izquierda - Derecha): ");
+        String ideologiaIn = dato.nextLine();
+
+        System.out.println("\nLista de partidos politicos\n");
+        for(Partidos partido : Partidos.values()) {
+            System.out.println("- " + partido.toString().replace("_", " "));
+        }
+        System.out.println("\nIngrese el partido politico del candidato: ");
+        String partidoIn = dato.nextLine();
+
+        System.out.println("\nIngrese la cantidad de promesas de campaña: ");
+        byte cantPromesas = dato.nextByte();
+        dato.nextLine(); // Limpia el ultimo caracter de espacio nulo \n
+
+        String promesas[] = new String[cantPromesas];
+        String promesa;
+
+        for(int i = 0; i < cantPromesas; i++) {
+            System.out.println("\nIngrese la promesa " + (i + 1) + ": ");
+            promesa = dato.nextLine();
+            promesas[i] = promesa;
+            }
+
+            Ciudades ciudadOrigen = Ciudades.Buenaventura;
+            Partidos partidoPolitico = Partidos.AICO;
+            Ideologia ideologiaPolitica = Ideologia.Izquierda;
+
+            for(Ciudades cuidad : Ciudades.values()) {
+                if(ciudadIn.equals(cuidad.toString())) {
+                    ciudadOrigen = cuidad;
+                    ciudadIn = "";
+                    break;
+                }
+            }
+
+            for(Ideologia ideologia : Ideologia.values()) {
+                if(ideologiaIn.equals(ideologia.toString())) {
+                    ideologiaPolitica = ideologia;
+                    ideologiaIn = "";
+                    break;
+                }
+            }
+
+            for(Partidos partido : Partidos.values()) {
+                if(partidoIn.equals(partido.toString())) {
+                    partidoPolitico = partido;
+                    partidoIn = "";
+                    break;
+                }
+            }
+
+            if(ciudadIn.length() != 0) {
+                System.out.println("\nLa ciudad de origen es incorrecta");
+            } else if(ideologiaIn.length() != 0) {
+                System.out.println("La ideologia politica es incorrecta");
+            } else if(partidoIn.length() != 0) {
+                System.out.println("El partido politico es incorrecto");
+            } else {
+            Candidato nuevoCandidato = new Candidato(nombre, cedula, ciudadOrigen, ideologiaPolitica, partidoPolitico, promesas);
+            candidatos.add(nuevoCandidato);
+            System.out.println("Candidato agregado correctamente.");
+            }
+        
+
+
+    }
+
     public static void actualizarCandidato(ArrayList<Candidato> candidatos) {
         Scanner scanner = new Scanner(System.in);
 
@@ -125,4 +208,30 @@ public abstract class Crud {
 
         if(indice == -1) System.out.println("\nEl candidato no fue encontrado");
     }
+
+    public static void eliminarCandidato(ArrayList<Candidato> candidatos){
+        Scanner dato = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del candidato a eliminar: ");
+        String busqueda = dato.nextLine();
+        for (Candidato candidato : candidatos) {
+            if (candidato.getNombre().equals(busqueda)) {
+                candidatos.remove(candidato);
+                System.out.println("Persona eliminada correctamente.");
+                break;
+            }else{
+            System.out.println("El candidato no fue encontrado");
+            }       
+        
+            }   
+    }
+    public static void listarCandidatos(ArrayList<Candidato> candidatos){
+        System.out.println("Listado de candidatos:\n");
+        for (Candidato candidato : candidatos) {
+            System.out.println(candidatos);
+        }
+    }
 }
+
+
+
+
