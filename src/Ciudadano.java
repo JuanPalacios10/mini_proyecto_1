@@ -1,10 +1,12 @@
 public class Ciudadano {
     private String nombre;
     private String cedula;
+    private Ciudades ciudad;
 
-    public Ciudadano(String nombre, String cedula) {
+    public Ciudadano(String nombre, String cedula, Ciudades ciudad) {
         this.nombre = nombre;
         this.cedula = cedula;
+        this.ciudad = ciudad;
     }
 
     public String getNombre() {
@@ -21,5 +23,13 @@ public class Ciudadano {
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public Ciudades getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudades ciudad) {
+        this.ciudad = ciudad;
     }
 }

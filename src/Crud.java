@@ -23,8 +23,22 @@ public abstract class Crud {
             System.out.println("\nIngrese la cedula del candidato: ");
             String cedula = scanner.nextLine();
 
+            System.out.println("\nLista de ciudades\n");
+            for(Ciudades ciudad : Ciudades.values()) {
+                System.out.println("- " + ciudad.toString().replace("_", " "));
+            }
+            System.out.println("\nIngrese la ciudad del candidato: ");
+            String ciudadIn = scanner.nextLine();
+
             System.out.println("\nIngrese la idelogia politica del candidato (Izquierda - Derecha): ");
-            String ideologia = scanner.nextLine();
+            String ideologiaIn = scanner.nextLine();
+
+            System.out.println("\nLista de partidos politicos\n");
+            for(Partidos partido : Partidos.values()) {
+                System.out.println("- " + partido.toString().replace("_", " "));
+            }
+            System.out.println("\nIngrese el partido politico del candidato: ");
+            String partidoIn = scanner.nextLine();
 
             System.out.println("\nIngrese la cantidad de promesas de campaña: ");
             byte cantPromesas = scanner.nextByte();
@@ -42,26 +56,79 @@ public abstract class Crud {
             System.out.println("\nIngrese el numero de votos del candidato: ");
             int votos = scanner.nextInt();
 
+            Ciudades ciudadOrigen = Ciudades.Buenaventura;
+            Partidos partidoPolitico = Partidos.AICO;
             Ideologia ideologiaPolitica = Ideologia.Izquierda;
 
-            for(Ideologia ideolog : Ideologia.values()) {
-                if(ideologia.equals(ideolog.toString())) {
-                    ideologiaPolitica = ideolog;
-                    ideologia = "";
+            for(Ciudades cuidad : Ciudades.values()) {
+                if(ciudadIn.equals(cuidad.toString())) {
+                    ciudadOrigen = cuidad;
+                    ciudadIn = "";
                     break;
                 }
             }
 
-            if(ideologia.length() == 0) {
-                Candidato candidatoAct = new Candidato(nombre, cedula, ideologiaPolitica, promesas, votos);
-                candidatos.set(indice, candidatoAct);
-            } else {
+            for(Ideologia ideologia : Ideologia.values()) {
+                if(ideologiaIn.equals(ideologia.toString())) {
+                    ideologiaPolitica = ideologia;
+                    ideologiaIn = "";
+                    break;
+                }
+            }
+
+            for(Partidos partido : Partidos.values()) {
+                if(partidoIn.equals(partido.toString())) {
+                    partidoPolitico = partido;
+                    partidoIn = "";
+                    break;
+                }
+            }
+
+            if(ciudadIn.length() != 0) {
+                System.out.println("\nLa ciudad de origen es incorrecta");
+            } else if(ideologiaIn.length() != 0) {
                 System.out.println("La ideologia politica es incorrecta");
+            } else if(partidoIn.length() != 0) {
+                System.out.println("El partido politico es incorrecto");
+            } else {
+                candidatos.get(indice).setNombre(nombre);
+                candidatos.get(indice).setCedula(cedula);
+                candidatos.get(indice).setCiudad(ciudadOrigen);
+                candidatos.get(indice).setIdeologia(ideologiaPolitica);
+                candidatos.get(indice).setPartido(partidoPolitico);
+                candidatos.get(indice).setPromesas(promesas);
+                candidatos.get(indice).setVotos(votos);
             }
         } else {
             System.out.println("\nEl nombre del candidato no fue encontrado");
         }
+    }
 
-        scanner.close();
+    public static void buscar(ArrayList<Candidato> candidatos) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del candidato a buscar: ");
+        String nombre = scanner.nextLine();
+
+        candidatos.forEach((candidato) -> {
+            if(candidato.getNombre().equals(nombre)) {
+                indice = candidatos.indexOf(candidato);
+
+                System.out.println("\nNombre: " + candidato.getNombre());
+                System.out.println("Cedula: " + candidato.getCedula());
+                System.out.println("Ciudad: " + candidato.getCiudad().toString().replace("_", " "));
+                System.out.println("Ideologia: " + candidato.getIdeologia());
+                System.out.println("Partido politico: " + candidato.getPartido().toString().replace("_", " "));
+                
+                System.out.println("Lista de promesas de campaña: ");
+                for(String promesa : candidato.getPromesas()) {
+                    System.out.println("- " + promesa);
+                }
+
+                System.out.println("Votos: " + candidato.getVotos());
+            }
+        });
+
+        if(indice == -1) System.out.println("\nEl candidato no fue encontrado");
     }
 }
