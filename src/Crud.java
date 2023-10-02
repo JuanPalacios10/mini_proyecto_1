@@ -80,7 +80,7 @@ public abstract class Crud {
             } else {
             Candidato nuevoCandidato = new Candidato(nombre, cedula, ciudadOrigen, ideologiaPolitica, partidoPolitico, promesas);
             candidatos.add(nuevoCandidato);
-            System.out.println("Candidato agregado correctamente.");
+            System.out.println("Candidato agregado correctamente.\n");
             }
         
 
@@ -211,23 +211,35 @@ public abstract class Crud {
 
     public static void eliminarCandidato(ArrayList<Candidato> candidatos){
         Scanner dato = new Scanner(System.in);
+
         System.out.println("Ingrese el nombre del candidato a eliminar: ");
         String busqueda = dato.nextLine();
         for (Candidato candidato : candidatos) {
             if (candidato.getNombre().equals(busqueda)) {
+                indice = candidatos.indexOf(candidato);
                 candidatos.remove(candidato);
-                System.out.println("Persona eliminada correctamente.");
+                System.out.println("Candidato eliminado correctamente.");
                 break;
-            }else{
-            System.out.println("El candidato no fue encontrado");
-            }       
+            }     
+        }
+        if(indice==-1) System.out.println("El candidato no fue encontrado.\n");   
+    }       
         
-            }   
-    }
+       
+    
     public static void listarCandidatos(ArrayList<Candidato> candidatos){
         System.out.println("Listado de candidatos:\n");
         for (Candidato candidato : candidatos) {
-            System.out.println(candidatos);
+            System.out.println("\nNombre: " + candidato.getNombre());
+            System.out.println("Cedula: " + candidato.getCedula());
+            System.out.println("Ciudad: " + candidato.getCiudad().toString().replace("_", " "));
+            System.out.println("Ideologia: " + candidato.getIdeologia());
+            System.out.println("Partido politico: " + candidato.getPartido().toString().replace("_", " "));
+                
+            System.out.println("Lista de promesas de campaña: ");
+            for(String promesa : candidato.getPromesas()) {
+                System.out.println("- " + promesa + "\n");
+            }
         }
     }
 }
