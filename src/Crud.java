@@ -6,10 +6,10 @@ public abstract class Crud {
 
     public static void insertarCandidato(ArrayList<Candidato> candidatos){
         Scanner dato = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del candidato: ");
+        System.out.println("\nIngrese el nombre del candidato: ");
         String nombre = dato.nextLine();
 
-        System.out.println("Ingrese el número de cédula del candidato: ");
+        System.out.println("\nIngrese el número de cédula del candidato: ");
         String cedula = dato.nextLine();
 
         System.out.println("\nLista de ciudades\n");
@@ -48,7 +48,7 @@ public abstract class Crud {
             Ideologia ideologiaPolitica = Ideologia.Izquierda;
 
             for(Ciudades cuidad : Ciudades.values()) {
-                if(ciudadIn.equals(cuidad.toString())) {
+                if(ciudadIn.equals(cuidad.toString().replace("_", " "))) {
                     ciudadOrigen = cuidad;
                     ciudadIn = "";
                     break;
@@ -64,7 +64,7 @@ public abstract class Crud {
             }
 
             for(Partidos partido : Partidos.values()) {
-                if(partidoIn.equals(partido.toString())) {
+                if(partidoIn.equals(partido.toString().replace("_", " "))) {
                     partidoPolitico = partido;
                     partidoIn = "";
                     break;
@@ -78,19 +78,16 @@ public abstract class Crud {
             } else if(partidoIn.length() != 0) {
                 System.out.println("El partido politico es incorrecto");
             } else {
-            Candidato nuevoCandidato = new Candidato(nombre, cedula, ciudadOrigen, ideologiaPolitica, partidoPolitico, promesas);
-            candidatos.add(nuevoCandidato);
-            System.out.println("Candidato agregado correctamente.\n");
+                Candidato nuevoCandidato = new Candidato(nombre, cedula, ciudadOrigen, ideologiaPolitica, partidoPolitico, promesas);
+                candidatos.add(nuevoCandidato);
+                System.out.println("\nEl candidato fue agregado correctamente.\n");
             }
-        
-
-
     }
 
     public static void actualizarCandidato(ArrayList<Candidato> candidatos) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del candidato a actualizar: ");
+        System.out.println("\nIngrese el nombre del candidato a actualizar: ");
         String busqueda = scanner.nextLine();
         
         candidatos.forEach((candidato) -> {
@@ -141,7 +138,7 @@ public abstract class Crud {
             Ideologia ideologiaPolitica = Ideologia.Izquierda;
 
             for(Ciudades cuidad : Ciudades.values()) {
-                if(ciudadIn.equals(cuidad.toString())) {
+                if(ciudadIn.equals(cuidad.toString().replace("_", " "))) {
                     ciudadOrigen = cuidad;
                     ciudadIn = "";
                     break;
@@ -157,7 +154,7 @@ public abstract class Crud {
             }
 
             for(Partidos partido : Partidos.values()) {
-                if(partidoIn.equals(partido.toString())) {
+                if(partidoIn.equals(partido.toString().replace("_", " "))) {
                     partidoPolitico = partido;
                     partidoIn = "";
                     break;
@@ -177,16 +174,20 @@ public abstract class Crud {
                 candidatos.get(indice).setIdeologia(ideologiaPolitica);
                 candidatos.get(indice).setPartido(partidoPolitico);
                 candidatos.get(indice).setPromesas(promesas);
+
+                System.out.println("\nEl candidato fue actualizaco correctamente.\n");
             }
         } else {
-            System.out.println("\nEl nombre del candidato no fue encontrado");
+            System.out.println("\nEl candidato no fue encontrado.\n");
         }
+
+        indice = -1; // Reinicio del indice
     }
 
     public static void buscarCandidato(ArrayList<Candidato> candidatos) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del candidato a buscar: ");
+        System.out.println("\nIngrese el nombre del candidato a buscar: ");
         String nombre = scanner.nextLine();
 
         candidatos.forEach((candidato) -> {
@@ -203,34 +204,40 @@ public abstract class Crud {
                 for(String promesa : candidato.getPromesas()) {
                     System.out.println("- " + promesa);
                 }
+
+                System.out.println(""); // Salto de linea
             }
         });
 
-        if(indice == -1) System.out.println("\nEl candidato no fue encontrado");
+        if(indice == -1) System.out.println("\nEl candidato no fue encontrado.\n");
+
+        indice = -1; // Reinicio del indice
     }
 
     public static void eliminarCandidato(ArrayList<Candidato> candidatos){
         Scanner dato = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del candidato a eliminar: ");
+        System.out.println("\nIngrese el nombre del candidato a eliminar: ");
         String busqueda = dato.nextLine();
+
         for (Candidato candidato : candidatos) {
             if (candidato.getNombre().equals(busqueda)) {
                 indice = candidatos.indexOf(candidato);
                 candidatos.remove(candidato);
-                System.out.println("Candidato eliminado correctamente.");
+                System.out.println("\nEl candidato fue eliminado correctamente.\n");
                 break;
             }     
         }
-        if(indice==-1) System.out.println("El candidato no fue encontrado.\n");   
+
+        if(indice == -1) System.out.println("\nEl candidato no fue encontrado.\n");   
+
+        indice = -1; // Reinicio del indice
     }       
-        
-       
     
     public static void listarCandidatos(ArrayList<Candidato> candidatos){
-        System.out.println("Listado de candidatos:\n");
+        System.out.println("\nListado de candidatos:\n");
         for (Candidato candidato : candidatos) {
-            System.out.println("\nNombre: " + candidato.getNombre());
+            System.out.println("Nombre: " + candidato.getNombre());
             System.out.println("Cedula: " + candidato.getCedula());
             System.out.println("Ciudad: " + candidato.getCiudad().toString().replace("_", " "));
             System.out.println("Ideologia: " + candidato.getIdeologia());
@@ -238,12 +245,12 @@ public abstract class Crud {
                 
             System.out.println("Lista de promesas de campaña: ");
             for(String promesa : candidato.getPromesas()) {
-                System.out.println("- " + promesa + "\n");
+                System.out.println("- " + promesa);
             }
+
+            System.out.println("Votos: " + candidato.getVotos());
+
+            System.out.println(""); // Salto de linea
         }
     }
 }
-
-
-
-
