@@ -1,4 +1,6 @@
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -34,6 +36,42 @@ public class App {
                         candidato.setVotos(votos);
                     });
 
+                    System.out.println(""); // Salto de linea
+
+                    // Partidos con mas candidatos inscritos
+                    ArrayList<Short> numPartidos = new ArrayList<Short>();
+                    ArrayList<Partidos> partidoCandidatos = new ArrayList<Partidos>();
+                    Partidos partidosRepetidos[] = new Partidos[candidatos.size()];
+                    short contador = 0;
+
+                    for(Candidato candidato : candidatos) {
+                        partidosRepetidos[candidatos.indexOf(candidato)] = candidato.getPartido();
+                    }
+                    
+                    for(Partidos partido : Partidos.values()) {
+                        contador = 0;
+
+                        for(Partidos partidoRepetido : partidosRepetidos) {
+                            if(partido.equals(partidoRepetido)) contador++;
+                        }
+
+                        if(contador > 0) {
+                            numPartidos.add(contador);
+                            partidoCandidatos.add(partido);
+                        }
+                    }
+
+                    short maxPartido = numPartidos.get(0);
+                    int indicePartido = 0;
+
+                    for(short i = 0; i < numPartidos.size(); i++) {
+                        if(maxPartido < numPartidos.get(i)) {
+                            maxPartido = numPartidos.get(i);
+                            indicePartido = numPartidos.indexOf(numPartidos.get(i));
+                        }
+                    }
+
+                    System.out.println("El partido con mas candidatos es " + partidoCandidatos.get(indicePartido).toString().replace("_", " "));
                     System.out.println(""); // Salto de linea
                     break;
                 }
