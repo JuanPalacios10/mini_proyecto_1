@@ -43,7 +43,7 @@ public abstract class Crud {
             promesas[i] = promesa;
             }
 
-            Ciudades ciudadOrigen = Ciudades.Buenaventura;
+            Ciudades ciudadOrigen = Ciudades.Alcala;
             Partidos partidoPolitico = Partidos.AICO;
             Ideologia ideologiaPolitica = Ideologia.Izquierda;
 
@@ -72,11 +72,11 @@ public abstract class Crud {
             }
 
             if(ciudadIn.length() != 0) {
-                System.out.println("\nLa ciudad de origen es incorrecta");
+                System.out.println("\nLa ciudad de origen es incorrecta\n");
             } else if(ideologiaIn.length() != 0) {
-                System.out.println("La ideologia politica es incorrecta");
+                System.out.println("\nLa ideologia politica es incorrecta\n");
             } else if(partidoIn.length() != 0) {
-                System.out.println("El partido politico es incorrecto");
+                System.out.println("\nEl partido politico es incorrecto\n");
             } else {
                 Candidato nuevoCandidato = new Candidato(nombre, cedula, ciudadOrigen, ideologiaPolitica, partidoPolitico, promesas);
                 candidatos.add(nuevoCandidato);
@@ -162,11 +162,11 @@ public abstract class Crud {
             }
 
             if(ciudadIn.length() != 0) {
-                System.out.println("\nLa ciudad de origen es incorrecta");
+                System.out.println("\nLa ciudad de origen es incorrecta\n");
             } else if(ideologiaIn.length() != 0) {
-                System.out.println("La ideologia politica es incorrecta");
+                System.out.println("La ideologia politica es incorrecta\n");
             } else if(partidoIn.length() != 0) {
-                System.out.println("El partido politico es incorrecto");
+                System.out.println("El partido politico es incorrecto\n");
             } else {
                 candidatos.get(indice).setNombre(nombre);
                 candidatos.get(indice).setCedula(cedula);
@@ -235,22 +235,45 @@ public abstract class Crud {
     }       
     
     public static void listarCandidatos(ArrayList<Candidato> candidatos){
-        System.out.println("\nListado de candidatos:\n");
-        for (Candidato candidato : candidatos) {
-            System.out.println("Nombre: " + candidato.getNombre());
-            System.out.println("Cedula: " + candidato.getCedula());
-            System.out.println("Ciudad: " + candidato.getCiudad().toString().replace("_", " "));
-            System.out.println("Ideologia: " + candidato.getIdeologia());
-            System.out.println("Partido politico: " + candidato.getPartido().toString().replace("_", " "));
-                
-            System.out.println("Lista de promesas de campaña: ");
-            for(String promesa : candidato.getPromesas()) {
-                System.out.println("- " + promesa);
+        if(candidatos.size() == 0) System.out.println("\nAun no existen candidatos\n");
+        else {
+            System.out.println("\nListado de candidatos:\n");
+
+            for (Candidato candidato : candidatos) {
+                System.out.println("Nombre: " + candidato.getNombre());
+                System.out.println("Cedula: " + candidato.getCedula());
+                System.out.println("Ciudad: " + candidato.getCiudad().toString().replace("_", " "));
+                System.out.println("Ideologia: " + candidato.getIdeologia());
+                System.out.println("Partido politico: " + candidato.getPartido().toString().replace("_", " "));
+                    
+                System.out.println("Lista de promesas de campaña: ");
+                for(String promesa : candidato.getPromesas()) {
+                    System.out.println("- " + promesa);
+                }
+
+                System.out.println("Votos: " + candidato.getVotos());
+
+                System.out.println(""); // Salto de linea
             }
+        }
+    }
 
-            System.out.println("Votos: " + candidato.getVotos());
+    public static void encontrarGanador(ArrayList<Candidato> candidatos) {
+        // Inicializar la persona con más votos con el primer elemento de la lista
+        Candidato ganador = candidatos.get(0);
 
-            System.out.println(""); // Salto de linea
+        // Iterar a través de la lista para encontrar la persona con la mayor número de votos
+        for (int i = 1; i < candidatos.size(); i++) {
+            Candidato candidato_iterador = candidatos.get(i);
+            if (candidato_iterador.getVotos() > ganador.getVotos()) {
+                ganador = candidato_iterador;
+            }
+        }
+
+        System.out.println("El ganador es " + ganador.getNombre() + " con número de cédula " + ganador.getCedula());
+        System.out.println("Lista de promesas de campaña del ganador: ");
+        for(String promesa : ganador.getPromesas()) {
+            System.out.println("- " + promesa);
         }
     }
 }

@@ -1,6 +1,4 @@
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -37,6 +35,7 @@ public class App {
                     });
 
                     System.out.println(""); // Salto de linea
+                    Crud.encontrarGanador(candidatos);
 
                     // Partidos con mas candidatos inscritos
                     ArrayList<Short> numPartidos = new ArrayList<Short>();
@@ -71,8 +70,7 @@ public class App {
                         }
                     }
 
-                    System.out.println("El partido con mas candidatos es " + partidoCandidatos.get(indicePartido).toString().replace("_", " "));
-                    System.out.println(""); // Salto de linea
+                    System.out.println("\nEl partido con mas candidatos es " + partidoCandidatos.get(indicePartido).toString().replace("_", " "));
 
                     //Top 3 ciudades con menos candidatos como ciudad de origen
                     ArrayList<Short> numCiudades = new ArrayList<Short>();
@@ -98,36 +96,58 @@ public class App {
                     }
 
                     short menorNumCiudades[] = new short[3];
-                    Ciudades topCiudades[] = new Ciudades[3];
+                    String topCiudades[] = new String[3];
                     int indiceCiudades;
 
-                    for(short i = 0; i < menorNumCiudades.length; i++) {
-                        indiceCiudades = 0;
-                        menorNumCiudades[i] = numCiudades.get(0);
-
-                        for(short j = 0; j < numCiudades.size(); j++) {
-                            if(menorNumCiudades[i] > numCiudades.get(j)) {
-                                menorNumCiudades[i] = numCiudades.get(j);
-                                indiceCiudades = numCiudades.indexOf(numCiudades.get(j));
-                            }
+                    if(numCiudades.size() == 1) {
+                        topCiudades[0] = ciudadCandidatos.get(0).toString();
+                        topCiudades[1] = "";
+                        topCiudades[2] = "";
+                    } else if(numCiudades.size() == 2) {
+                        menorNumCiudades[0] = numCiudades.get(0);
+                        
+                        if(menorNumCiudades[0] > numCiudades.get(1)) {
+                            topCiudades[0] = ciudadCandidatos.get(1).toString();
+                            topCiudades[1] = ciudadCandidatos.get(0).toString();
+                        } else {
+                            topCiudades[0] = ciudadCandidatos.get(0).toString();
+                            topCiudades[1] = ciudadCandidatos.get(1).toString();
                         }
 
-                        topCiudades[i] = ciudadCandidatos.get(indiceCiudades);
-                        numCiudades.remove(indiceCiudades);
-                        ciudadCandidatos.remove(indiceCiudades);
+                        topCiudades[2] = "";
+                    } else {
+                        for(short i = 0; i < menorNumCiudades.length; i++) {
+                            indiceCiudades = 0;
+                            menorNumCiudades[i] = numCiudades.get(0);
+
+                            for(short j = 0; j < numCiudades.size(); j++) {
+                                if(menorNumCiudades[i] > numCiudades.get(j)) {
+                                    menorNumCiudades[i] = numCiudades.get(j);
+                                    indiceCiudades = numCiudades.indexOf(numCiudades.get(j));
+                                }
+                            }
+
+                            topCiudades[i] = ciudadCandidatos.get(indiceCiudades).toString();
+                            if(numCiudades.size() > 1 && ciudadCandidatos.size() > 1) {
+                                numCiudades.remove(indiceCiudades);
+                                ciudadCandidatos.remove(indiceCiudades);
+                            }
+                        }
                     }
 
                     System.out.println("\nTop 3 de las ciudades con menos candidatos como ciudad de origen\n");
                     for(short i = 0; i < topCiudades.length; i++) {
-                        System.out.println((i + 1) + ". " + topCiudades[i]);
+                        System.out.println((i + 1) + ". " + topCiudades[i].replace("_", " "));
                     }
                     System.out.println(""); // Salto de linea
-
                     break;
                 }
                 case 7: break;
                 default: System.out.println("Ingrese una opción válida");
             }
         } while(opcion != 7);
+
+        scanner.close();
     }
+    
 }    
