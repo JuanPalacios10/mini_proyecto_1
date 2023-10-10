@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public abstract class Crud {
@@ -253,4 +254,24 @@ public abstract class Crud {
             System.out.println(""); // Salto de linea
         }
     }
+
+    public static void encontrarGanador(ArrayList<Candidato> candidatos) {
+        // Inicializar la persona con más votos con el primer elemento de la lista
+        Candidato ganador = candidatos.get(0);
+
+        // Iterar a través de la lista para encontrar la persona con la mayor número de votos
+        for (int i = 1; i < candidatos.size(); i++) {
+            Candidato candidato_iterador = candidatos.get(i);
+            if (candidato_iterador.getVotos() > ganador.getVotos()) {
+                ganador = candidato_iterador;
+            }
+        }
+        System.out.println("El ganador es: " + ganador.getNombre() + " con número de cédula: " + ganador.getCedula());
+        System.out.println("Lista de promesas de campaña del ganador: ");
+            for(String promesa : ganador.getPromesas()) {
+                System.out.println("- " + promesa);
+            }
+
+    }
+
 }

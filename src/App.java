@@ -37,7 +37,8 @@ public class App {
                     });
 
                     System.out.println(""); // Salto de linea
-
+                    Crud.encontrarGanador(candidatos);
+/* 
                     // Partidos con mas candidatos inscritos
                     ArrayList<Short> numPartidos = new ArrayList<Short>();
                     ArrayList<Partidos> partidoCandidatos = new ArrayList<Partidos>();
@@ -121,8 +122,11 @@ public class App {
                     for(short i = 0; i < topCiudades.length; i++) {
                         System.out.println((i + 1) + ". " + topCiudades[i]);
                     }
-                    System.out.println(""); // Salto de linea
+                    System.out.println(""); // Salto de linea*/
 
+                    
+                                                                                                                                     
+                    
                     break;
                 }
                 case 7: break;
@@ -130,4 +134,5 @@ public class App {
             }
         } while(opcion != 7);
     }
+    
 }    
