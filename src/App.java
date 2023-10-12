@@ -8,14 +8,13 @@ public class App {
         int opcion;
 
         do {
-            System.out.println("MENU");
+            System.out.println("MENU 1");
             System.out.println("1. Insertar candidato");
             System.out.println("2. Actualizar candidato");
             System.out.println("3. Eliminar candidato");
             System.out.println("4. Buscar candidato por nombre");
             System.out.println("5. Listar todos los candidatos");
-            System.out.println("6. Continuar con el conteo de votos");
-            System.out.println("7. Salir");
+            System.out.println("6. Salir y continuar con el conteo de votos");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
 
@@ -25,7 +24,7 @@ public class App {
                 case 3: Crud.eliminarCandidato (candidatos); break;
                 case 4: Crud.buscarCandidato (candidatos); break;
                 case 5: Crud.listarCandidatos (candidatos); break;
-                case 6: {
+                case 6: { 
                     if(candidatos.size() == 0) System.out.println("\nAun no hay ningun candidato.\n");
 
                     candidatos.forEach((candidato) -> {
@@ -35,16 +34,29 @@ public class App {
                     });
 
                     System.out.println(""); // Salto de linea
-                    Crud.encontrarGanador(candidatos);
-                    Crud.encontrarPartido(candidatos);
-                    Crud.encontrarTopCiudades(candidatos);
-                    System.out.println(""); // Salto de linea
+                    int opc;
+                    do{
+                        System.out.println("MENU 2");
+                        System.out.println("1. Conocer el candidato ganador ");
+                        System.out.println("2. Conocer el partido con más candidatos inscritos");
+                        System.out.println("3. Top 3 de las ciudades con menos candidatos");
+                        System.out.println("4. Salir.");
+                        System.out.println("Seleccione una opcion: ");
+                        opc = scanner.nextInt();
+
+                        switch(opc){
+                            case 1: Crud.encontrarGanador(candidatos); break;
+                            case 2: Crud.encontrarPartido(candidatos); break;
+                            case 3: Crud.encontrarTopCiudades(candidatos); break;
+                            case 4: break;
+                            default: System.out.println("Ingrese una opcion valida");
+                        }
+                    }while(opc!=4);
                     break;
                 }
-                case 7: break;
                 default: System.out.println("Ingrese una opción válida");
             }
-        } while(opcion != 7);
+        } while(opcion != 6);
 
         scanner.close();
     }

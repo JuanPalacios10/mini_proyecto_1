@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public abstract class Crud {
     private static int indice = -1;
+    public static void cleanScreen(){
+        System.out.print("\033[H\033[2J");//Limpiar consola
+        System.out.flush();
+
+    }
 
     public static void insertarCandidato(ArrayList<Candidato> candidatos){
         Scanner dato = new Scanner(System.in);
@@ -83,6 +88,7 @@ public abstract class Crud {
                 candidatos.add(nuevoCandidato);
                 System.out.println("\nEl candidato fue agregado correctamente.\n");
             }
+        cleanScreen();
     }
 
     public static void actualizarCandidato(ArrayList<Candidato> candidatos) {
@@ -252,7 +258,6 @@ public abstract class Crud {
                     System.out.println("- " + promesa);
                 }
 
-                System.out.println("Votos: " + candidato.getVotos());
 
                 System.out.println(""); // Salto de linea
             }
@@ -271,10 +276,10 @@ public abstract class Crud {
             }
         }
 
-        System.out.println("El ganador es " + ganador.getNombre() + " con número de cédula " + ganador.getCedula());
+        System.out.println("\nEl ganador es " + ganador.getNombre() + " con número de cédula " + ganador.getCedula());
         System.out.println("Lista de promesas de campaña del ganador: ");
         for(String promesa : ganador.getPromesas()) {
-            System.out.println("- " + promesa);
+            System.out.println("- " + promesa + "\n");
         }
     }
 
@@ -311,7 +316,7 @@ public abstract class Crud {
             }
         }
 
-        System.out.println("\nEl partido con mas candidatos es " + partidoCandidatos.get(indicePartido).toString().replace("_", " "));
+        System.out.println("\nEl partido con mas candidatos es " + partidoCandidatos.get(indicePartido).toString().replace("_", " ") + "\n");
     }
 
     public static void encontrarTopCiudades(ArrayList<Candidato> candidatos) {
